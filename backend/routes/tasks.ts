@@ -1,10 +1,10 @@
-import express from 'express';
+import { NextFunction, Request, Response, Router } from 'express';
 import { prisma } from '../prisma';
 import { Task } from '@prisma/client';
 import { logger } from '../utils/logger';
-const router = express.Router();
+const router = Router();
 
-export function getMany(_req, res, _next) {
+export function getMany(_req: Request, res: Response, _next: NextFunction) {
   prisma.task.findMany()
     .then((tasks: Task[]) => res.send({
       data: tasks,
@@ -17,7 +17,7 @@ export function getMany(_req, res, _next) {
     })
 }
 
-export function getOne(req, res, _next) {
+export function getOne(req: Request, res: Response, _next: NextFunction) {
   prisma.task.findUnique({
     where: {
       id: Number(req.params.id),
@@ -30,7 +30,7 @@ export function getOne(req, res, _next) {
       res.status(500).send({ errors: [error] })
     })
 }
-export function deleteOne(req, res, _next) {
+export function deleteOne(req: Request, res: Response, _next: NextFunction) {
   prisma.task.delete({
     where: {
       id: Number(req.params.id),
@@ -46,7 +46,7 @@ export function deleteOne(req, res, _next) {
     })
 }
 
-export function createOne(req, res, _next) {
+export function createOne(req: Request, res: Response, _next: NextFunction) {
   prisma.task.create({
     data: {
       title: req.body.title,
