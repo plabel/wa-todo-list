@@ -7,10 +7,6 @@ There will be all kinds of tests, unit, integration and maybe components and e2e
 
 Here is how I'll do it
 - First make a react project quickly with vite and implement the todolist just on the front end (with jest unit tests of course)
-  - display a todo list with one item where both title and description can be edited, the list item 
-  - make a button that adds a todo item
-  - display an icon button to archive the task
-  use a reducer to handle array state
 - Second I'll make a node/express backend with prisma/sqlite that handles restfully the CRUD operations, logging with PINO (with jest unit tests and supertest integration tests of course)
 - Then maybe
   - component tests with storybook plus showcase
