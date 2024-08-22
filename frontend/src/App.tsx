@@ -12,40 +12,38 @@ function App() {
 
 
   return (
-    <>
-      <Paper sx={{ height: 1, overflowY: 'auto' }}>
-        <AppBar color='transparent' position="static">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              sx={{ mr: 2 }}
-              onClick={() => addTodoItem(dispatch)}
-            >
-              <AddIcon />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              To-Do List
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <List>
-          {
-            tasks.map(
-              (task: Task, index: number) =>
-                <TodoItem
-                  titleValue={task.title}
-                  descriptionValue={task.description}
-                  index={index}
-                  key={index}
-                  dispatch={dispatch}
-                ></TodoItem>
-            )
-          }
-        </List>
-      </Paper>
-    </>
+    <Paper sx={{ height: 1, overflowY: 'auto' }}>
+      <AppBar color='transparent' position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            sx={{ mr: 2 }}
+            onClick={() => addTodoItem(dispatch)}
+          >
+            <AddIcon />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            To-Do List
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <List>
+        {
+          tasks.map(
+            (task: Task, index: number) =>
+              <TodoItem
+                titleValue={task.title}
+                descriptionValue={task.description}
+                index={index}
+                key={index}
+                dispatch={dispatch}
+              ></TodoItem>
+          )
+        }
+      </List>
+    </Paper>
   )
 }
 

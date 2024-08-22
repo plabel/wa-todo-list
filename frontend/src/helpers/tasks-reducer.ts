@@ -9,8 +9,8 @@ export function tasksReducer(draft: TaskReducerDraft, action: TasksReducerAction
             break;
         }
         case 'changed': {
-            if (action.task !== undefined) {
-                draft[action.index!] = action.task;
+            if (action.task !== undefined && action.index !== undefined) {
+                draft[action.index] = action.task;
             }
             break;
         }

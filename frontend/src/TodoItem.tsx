@@ -6,7 +6,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import { deleteTodoItem } from './helpers/delete-todo-item';
 
 export function TodoItem({ titleValue, descriptionValue, index, dispatch }: TodoItemProps) {
-    return (<>
+    return (
         <ListItem>
             <IconButton onClick={() => deleteTodoItem(dispatch, index)}>
                 <DoneIcon />
@@ -34,7 +34,6 @@ export function TodoItem({ titleValue, descriptionValue, index, dispatch }: Todo
                     />
                 </Stack>
             } />
-
         </ListItem>
-    </>)
+    )
 }
