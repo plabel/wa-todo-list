@@ -6,10 +6,17 @@ I'll take inspiration from WA technology's themes and designs.
 There will be all kinds of tests, unit, integration and maybe components and e2e.
 
 Here is how I'll do it
-- quickly with create express I'll make a node/express backend with prisma/sqlite that handles restfully the CRUD operations, logging with PINO (with jest unit tests and supertest integration tests of course)
+- Create a custom useRestClient()
+  - create and use client.create()
+  - create and use client.delete()
+  - create and use client.getMany()
+  - create and use client.updateOne()
+  - handle errors gracefully with snackbar alerts
+  - handle rest success with snackbar success
 - Then maybe
-  - component tests with storybook plus showcase
+  - integration tests with supertest
   - e2e tests with cypress video demo being a cypress run
+  - component tests with cypress
 
 I'll deliver it with a clean readme and video demo and will try running it again from scratch.
 
@@ -21,6 +28,14 @@ await (await fetch("http://localhost:3000/tasks/create", {
     "Content-Type": "application/json",
   },
   body: JSON.stringify({ title: "example", description: "example" }),
+})).json();
+
+await (await fetch("http://localhost:3000/tasks/update/2", {
+  method: "PUT",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ title: "dos", description: "updated" }),
 })).json();
 
 await (await fetch("http://localhost:3000/tasks/1", {

@@ -30,6 +30,24 @@ export function getOne(req: Request, res: Response, _next: NextFunction) {
       res.status(500).send({ errors: [error] })
     })
 }
+
+export function updateOne(req: Request, res: Response, _next: NextFunction) {
+  prisma.task.update({
+    where: {
+      id: Number(req.params.id),
+    },
+    data: {
+      title: req.body.title,
+      description: req.body.description,
+    },
+  })
+    .then((task: Task | null) => res.send({
+      data: task,
+    })).catch((error) => {
+      logger.warn(error)
+      res.status(500).send({ errors: [error] })
+    })
+}
 export function deleteOne(req: Request, res: Response, _next: NextFunction) {
   prisma.task.delete({
     where: {
@@ -67,5 +85,7 @@ router.get('/:id', getOne);
 router.delete('/:id', deleteOne);
 
 router.post('/create', createOne);
+
+router.put('/update/:id', updateOne);
 
 export default router;

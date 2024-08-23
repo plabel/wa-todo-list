@@ -7,7 +7,11 @@
       "DOM",
       "DOM.Iterable"
     ],
-    "module": "ESNext",
+    "types": [
+      "node",
+      "@types/jest"
+    ],
+    "module": "nodenext",
     "esModuleInterop": true,
     "skipLibCheck": true,
     /* Bundler mode */
@@ -16,7 +20,6 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
-    "jsx": "react-jsx",
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -24,6 +27,6 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "src"
+    "."
   ]
 }
