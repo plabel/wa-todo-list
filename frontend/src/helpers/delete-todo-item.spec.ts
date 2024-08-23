@@ -5,7 +5,7 @@ describe('deleteTodoItem', () => {
     it.each(testCases)(
         `$description`,
         ({ dispatch, index, didRun, didThrow }: DeleteTodoItemUnitTestCase) => {
-            const mock = jest.fn(dispatch);
+            const mock: jest.Mock = jest.fn(dispatch);
             try {
                 deleteTodoItem(mock, index);
             } catch (error) {

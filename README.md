@@ -6,9 +6,6 @@ I'll take inspiration from WA technology's themes and designs.
 There will be all kinds of tests, unit, integration and maybe components and e2e.
 
 Here is how I'll do it
-- Create a custom useRestClient()
-  - put url in const file
-- check types, refactor, review and manually test
 - Then maybe
   - integration tests with supertest
   - e2e tests with cypress video demo being a cypress run

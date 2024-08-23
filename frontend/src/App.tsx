@@ -10,6 +10,7 @@ import { useRestClient } from './use-rest-client';
 import { useEffect, useState } from 'react';
 import { SnackbarAlert } from './SnackbarAlert'
 import { useSnackbarAlert } from './use-snackbar-alert';
+import { AlertMsgs, errorSeverity } from './const';
 
 function App() {
   const { open, setOpen, msg, severity, alertFn } = useSnackbarAlert();
@@ -26,11 +27,11 @@ function App() {
           })
           tasks.forEach((task: Task) => addTodoItem(dispatch, task))
         })
-        .catch((_e) => {
-          alertFn("Something went wrong, please try again later.", 'error')
+        .catch(() => {
+          alertFn(AlertMsgs.Error, errorSeverity)
         });
     }
-  }, [tasksLoaded, setTasksLoaded]);
+  }, [tasksLoaded, setTasksLoaded, alertFn, dispatch, restClient]);
   useEffect(() => { }, [open])
 
 

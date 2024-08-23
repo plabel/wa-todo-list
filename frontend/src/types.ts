@@ -30,8 +30,18 @@ export type SnackbarAlertProps = {
     severity: AlertColor;
 }
 export type RestClient = {
-    create: () => Promise<any>;
-    update: (task: Task, id?: number) => Promise<any>;
-    getMany: () => Promise<any>;
+    create: () => Promise<Task | undefined>;
+    update: (task: Task, id?: number) => Promise<unknown>;
+    getMany: () => Promise<Task[] | undefined>;
     delete: (id?: number) => Promise<void>;
+}
+export interface JsonRes {
+    data?: unknown;
+    errors?: unknown[];
+};
+export interface CreateRes extends JsonRes {
+    data?: Task;
+}
+export interface GetManyRes extends JsonRes {
+    data?: Task[];
 }

@@ -1,11 +1,12 @@
 import { AlertColor } from "@mui/material";
-import { Task } from "./types";
+import { CreateRes, GetManyRes, JsonRes, RestClient, Task } from "./types";
+import { AlertMsgs, errorSeverity, serverUrl } from "./const";
 
-export function useRestClient(alertFn: (msgVal: string, severityVal?: AlertColor) => void) {
+export function useRestClient(alertFn: (msgVal: string, severityVal?: AlertColor) => void): RestClient {
     return {
         create: async () => {
             try {
-                const jsonRes = await (await fetch("http://localhost:3000/tasks/create", {
+                const jsonRes: CreateRes = await (await fetch(`${serverUrl}/tasks/create`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -14,18 +15,18 @@ export function useRestClient(alertFn: (msgVal: string, severityVal?: AlertColor
                 })).json();
 
                 if (jsonRes.errors === undefined) {
-                    alertFn("Task Saved!")
+                    alertFn(AlertMsgs.TaskSaved)
                     return jsonRes.data
                 } else {
-                    alertFn("Something went wrong, please try again later.", 'error')
+                    alertFn(AlertMsgs.Error, errorSeverity)
                 }
-            } catch (error) {
-                alertFn("Something went wrong, please try again later.", 'error')
+            } catch (_error) {
+                alertFn(AlertMsgs.Error, errorSeverity)
             }
         },
         update: async (task: Task, id?: number) => {
             try {
-                const jsonRes = await (await fetch(`http://localhost:3000/tasks/update/${id}`, {
+                const jsonRes: JsonRes = await (await fetch(`${serverUrl}/tasks/update/${id}`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
@@ -34,33 +35,33 @@ export function useRestClient(alertFn: (msgVal: string, severityVal?: AlertColor
                 })).json();
 
                 if (jsonRes.errors === undefined) {
-                    alertFn("Task Saved!")
+                    alertFn(AlertMsgs.TaskSaved)
                     return jsonRes.data
                 } else {
-                    alertFn("Something went wrong, please try again later.", 'error')
+                    alertFn(AlertMsgs.Error, errorSeverity)
                 }
-            } catch (error) {
-                alertFn("Something went wrong, please try again later.", 'error')
+            } catch (_error) {
+                alertFn(AlertMsgs.Error, errorSeverity)
             }
         },
         getMany: async () => {
             try {
-                const jsonRes = await (await fetch("http://localhost:3000/tasks", {
+                const jsonRes: GetManyRes = await (await fetch(`${serverUrl}/tasks`, {
                     method: "GET",
                 })).json();
 
                 if (jsonRes.errors === undefined) {
                     return jsonRes.data;
                 } else {
-                    alertFn("Something went wrong, please try again later.", 'error')
+                    alertFn(AlertMsgs.Error, errorSeverity)
                 }
-            } catch (error) {
-                alertFn("Something went wrong, please try again later.", 'error')
+            } catch (_error) {
+                alertFn(AlertMsgs.Error, errorSeverity)
             }
         },
         delete: async (id?: number) => {
             try {
-                const jsonRes = await (await fetch(`http://localhost:3000/tasks/${id}`, {
+                const jsonRes: JsonRes = await (await fetch(`${serverUrl}/tasks/${id}`, {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json",
@@ -68,12 +69,12 @@ export function useRestClient(alertFn: (msgVal: string, severityVal?: AlertColor
                 })).json();
 
                 if (jsonRes.errors === undefined) {
-                    alertFn("Task Deleted!")
+                    alertFn(AlertMsgs.TaskDeleted)
                 } else {
-                    alertFn("Something went wrong, please try again later.", 'error')
+                    alertFn(AlertMsgs.Error, errorSeverity)
                 }
-            } catch (error) {
-                alertFn("Something went wrong, please try again later.", 'error')
+            } catch (_error) {
+                alertFn(AlertMsgs.Error, errorSeverity)
             }
         }
     }

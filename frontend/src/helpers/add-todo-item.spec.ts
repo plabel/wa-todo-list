@@ -5,7 +5,7 @@ describe('addTodoItem', () => {
     it.each(testCases)(
         `$description`,
         ({ dispatch, didRun, didThrow }: AddTodoItemUnitTestCase) => {
-            const mock = jest.fn(dispatch);
+            const mock: jest.Mock = jest.fn(dispatch);
             try {
                 addTodoItem(mock);
             } catch (error) {
