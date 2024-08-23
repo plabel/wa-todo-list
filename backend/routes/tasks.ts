@@ -78,6 +78,15 @@ export function createOne(req: Request, res: Response, _next: NextFunction) {
   })
 }
 
+router.use(function (_req, res, next) {
+  res.set({
+    'Access-Control-Allow-Origin': 'http://localhost:5173',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE'
+  })
+  next()
+})
+
 router.get('/', getMany);
 
 router.get('/:id', getOne);

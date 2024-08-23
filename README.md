@@ -7,16 +7,13 @@ There will be all kinds of tests, unit, integration and maybe components and e2e
 
 Here is how I'll do it
 - Create a custom useRestClient()
-  - create and use client.create()
-  - create and use client.delete()
-  - create and use client.getMany()
-  - create and use client.updateOne()
-  - handle errors gracefully with snackbar alerts
-  - handle rest success with snackbar success
+  - put url in const file
+- check types, refactor, review and manually test
 - Then maybe
   - integration tests with supertest
   - e2e tests with cypress video demo being a cypress run
   - component tests with cypress
+  - custom page title
 
 I'll deliver it with a clean readme and video demo and will try running it again from scratch.
 

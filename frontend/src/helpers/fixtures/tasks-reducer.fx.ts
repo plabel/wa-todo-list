@@ -61,6 +61,19 @@ export const testCases: TasksReducerUnitTestCase[] = [
     },
     {
         description: `
+          Given action.type == Emptied
+          Then it empties the array
+        `,
+        draft: [task, task],
+        finalDraft: [],
+        action: {
+            type: TasksReducerActionTypes.Emptied,
+            index: 0
+        },
+        didThrow: false,
+    },
+    {
+        description: `
           Given action.type == ''
           Then it throws
         `,

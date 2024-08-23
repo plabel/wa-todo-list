@@ -17,6 +17,9 @@ export function tasksReducer(draft: TaskReducerDraft, action: TasksReducerAction
         case TasksReducerActionTypes.Deleted: {
             return draft.filter((_, index) => index !== action.index);
         }
+        case TasksReducerActionTypes.Emptied: {
+            return draft = [];
+        }
         default: {
             throw Error('Unknown action: ' + action.type);
         }

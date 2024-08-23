@@ -5,10 +5,33 @@ import AddIcon from '@mui/icons-material/Add';
 import { useImmerReducer } from 'use-immer';
 import { tasksReducer } from './helpers/tasks-reducer';
 import { addTodoItem } from './helpers/add-todo-item';
-import { Task, TaskReducerDraft, TasksReducerAction } from './types';
+import { RestClient, Task, TaskReducerDraft, TasksReducerAction, TasksReducerActionTypes } from './types';
+import { useRestClient } from './use-rest-client';
+import { useEffect, useState } from 'react';
+import { SnackbarAlert } from './SnackbarAlert'
+import { useSnackbarAlert } from './use-snackbar-alert';
 
 function App() {
+  const { open, setOpen, msg, severity, alertFn } = useSnackbarAlert();
+  const restClient: RestClient = useRestClient(alertFn);
   const [tasks, dispatch] = useImmerReducer<TaskReducerDraft, TasksReducerAction>(tasksReducer, []);
+  const [tasksLoaded, setTasksLoaded] = useState<boolean>(false);
+  useEffect(() => {
+    if (!tasksLoaded) {
+      setTasksLoaded(true)
+      restClient.getMany()
+        .then((tasks: Task[]) => {
+          dispatch({
+            type: TasksReducerActionTypes.Emptied,
+          })
+          tasks.forEach((task: Task) => addTodoItem(dispatch, task))
+        })
+        .catch((_e) => {
+          alertFn("Something went wrong, please try again later.", 'error')
+        });
+    }
+  }, [tasksLoaded, setTasksLoaded]);
+  useEffect(() => { }, [open])
 
 
   return (
@@ -20,7 +43,10 @@ function App() {
             edge="start"
             color="inherit"
             sx={{ mr: 2 }}
-            onClick={() => addTodoItem(dispatch)}
+            onClick={async () => {
+              const createdTask: Task = await restClient.create();
+              addTodoItem(dispatch, createdTask)
+            }}
           >
             <AddIcon />
           </IconButton>
@@ -34,15 +60,22 @@ function App() {
           tasks.map(
             (task: Task, index: number) =>
               <TodoItem
-                titleValue={task.title}
-                descriptionValue={task.description}
+                task={task}
                 index={index}
                 key={index}
                 dispatch={dispatch}
+                restClient={restClient}
               ></TodoItem>
           )
         }
       </List>
+      <SnackbarAlert
+        open={open}
+        setOpen={setOpen}
+        msg={msg}
+        severity={severity}
+      >
+      </SnackbarAlert>
     </Paper>
   )
 }

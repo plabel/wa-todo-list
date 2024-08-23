@@ -5,29 +5,41 @@ import { editTodoItem } from './helpers/edit-todo-item';
 import DoneIcon from '@mui/icons-material/Done';
 import { deleteTodoItem } from './helpers/delete-todo-item';
 
-export function TodoItem({ titleValue, descriptionValue, index, dispatch }: TodoItemProps) {
+export function TodoItem({ index, dispatch, task, restClient }: TodoItemProps) {
+    const { title, description, id } = task;
     return (
         <ListItem>
-            <IconButton onClick={() => deleteTodoItem(dispatch, index)}>
+            <IconButton onClick={
+                async () => {
+                    await restClient.delete(id)
+                    deleteTodoItem(dispatch, index)
+                }
+            }>
                 <DoneIcon />
             </IconButton>
             <ListItemText sx={{ marginLeft: 1 }} primary={
                 <Stack>
                     <TextField
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            editTodoItem(dispatch, index, event.target.value, descriptionValue);
+                        onChange={async (event: React.ChangeEvent<HTMLInputElement>) => {
+                            editTodoItem(dispatch, index, event.target.value, description, id);
                         }}
-                        value={titleValue}
+                        onBlur={async () => {
+                            await restClient.update(task, id)
+                        }}
+                        value={title}
                         label="Title"
                         fullWidth
                         variant="standard"
                     />
                     <TextField
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            editTodoItem(dispatch, index, titleValue, event.target.value);
+                        onChange={async (event: React.ChangeEvent<HTMLInputElement>) => {
+                            editTodoItem(dispatch, index, title, event.target.value, id);
+                        }}
+                        onBlur={async () => {
+                            await restClient.update(task, id)
                         }}
                         multiline
-                        value={descriptionValue}
+                        value={description}
                         fullWidth
                         label="Description"
                         variant="standard"
