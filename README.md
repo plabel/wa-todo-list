@@ -7,10 +7,8 @@ There will be all kinds of tests, unit, integration and maybe components and e2e
 
 Here is how I'll do it
 - Then maybe
-  - integration tests with supertest
   - e2e tests with cypress video demo being a cypress run
   - component tests with cypress
-  - custom page title
 
 I'll deliver it with a clean readme and video demo and will try running it again from scratch.
 

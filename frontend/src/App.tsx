@@ -21,11 +21,11 @@ function App() {
     if (!tasksLoaded) {
       setTasksLoaded(true)
       restClient.getMany()
-        .then((tasks: Task[]) => {
+        .then((tasks: Task[] | undefined) => {
           dispatch({
             type: TasksReducerActionTypes.Emptied,
           })
-          tasks.forEach((task: Task) => addTodoItem(dispatch, task))
+          tasks?.forEach((task: Task) => addTodoItem(dispatch, task))
         })
         .catch(() => {
           alertFn(AlertMsgs.Error, errorSeverity)
@@ -45,7 +45,7 @@ function App() {
             color="inherit"
             sx={{ mr: 2 }}
             onClick={async () => {
-              const createdTask: Task = await restClient.create();
+              const createdTask: Task | undefined = await restClient.create();
               addTodoItem(dispatch, createdTask)
             }}
           >
