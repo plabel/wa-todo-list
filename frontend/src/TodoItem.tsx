@@ -9,7 +9,7 @@ export function TodoItem({ index, dispatch, task, restClient }: TodoItemProps) {
     const { title, description, id } = task;
     return (
         <ListItem>
-            <IconButton onClick={
+            <IconButton className='doneBtn' onClick={
                 async () => {
                     await restClient.delete(id)
                     deleteTodoItem(dispatch, index)

@@ -40,6 +40,7 @@ function App() {
       <AppBar color='transparent' position="static">
         <Toolbar>
           <IconButton
+            id='addBtn'
             size="large"
             edge="start"
             color="inherit"
