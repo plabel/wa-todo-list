@@ -24,9 +24,23 @@ Please:
 
 ### Installation
 
+```
+cd backend
+mv .env.example .env
+npm i
+```
+
 ### Running
 
+```
+npm start
+```
+
 ### Unit tests
+
+```
+npm run unit-test
+```
 
 ### Integration tests
 
