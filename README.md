@@ -44,13 +44,38 @@ npm run unit-test
 
 ### Integration tests
 
+```
+npm run integration-test
+```
+
 ## Running the frontend
+
+Run the following in a new terminal
 
 ### Installation
 
+```
+cd frontend
+npm i
+```
+
 ### Running
+
+```
+npm run dev
+```
 
 ### Unit tests
 
-### Integration tests
+```
+npm run unit-test
+```
 
+### e2e
+Please note that both the frontend and backend need to be running beforehand.
+
+Cypress is installed globally when running this command the first time.
+
+```
+npx cypress open
+```
